@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book index{% endblock %}
+
+{% block body %}
+<h1>Book index</h1>
+<table class="table">
+<thead>
+<tr>
+<th>Title</th>
+<th>Author</th>
+<th>Year</th>
+<th>Genre</th>
+<th>Description</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+{% for book in books %}
+<tr>
+<td>{{ book.title }}</td>
+<td>{{ book.author }}</td>
+<td>{{ book.publishingYear }}</td>
+<td>{{ book.genre }}</td>
+<td>{{ book.description }}</td>
+<td>
+<a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+<!-- Start of the form for delete button -->
+<form action="{{ path('book_delete', {'id': book.id}) }}" method="post" onsubmit="return confirm('Are you sure?');">
+<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
+<input type="hidden" name="_method" value="DELETE">
+<button type="submit">delete</button>
+</form>
+<!-- End of the form for delete button -->
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<a href="{{ path('book_new') }}">Create new</a>
+{% endblock %}
