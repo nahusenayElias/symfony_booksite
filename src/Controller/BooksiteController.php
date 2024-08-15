@@ -60,7 +60,7 @@ class BooksiteController extends AbstractController
             "form" => $form->createView(),
         ]);
     }
-
+    //Delete sub-section
     #[Route("/{id}", name: "book_delete", methods: ["DELETE"])]
     public function delete(Request $request, Book $book, ManagerRegistry $doctrine): Response
     {
@@ -75,9 +75,7 @@ class BooksiteController extends AbstractController
     // Redirect back to the book index page
     return $this->redirectToRoute("book_index");
     }
-    
-    // If the CSRF token is not valid, redirect back to the book index page
-    return $this->redirectToRoute("book_index");
+  
     }
     
 }
